@@ -31,7 +31,7 @@ WHERE UserID IS NULL
    SELECT DISTINCT Surname
    FROM bright.TV.user_profile;
 
-   SElECT UserID,
+   SELECT UserID,
           Name, 
           Email,
           CASE 
@@ -57,7 +57,7 @@ SELECT
         Age,
         Province,
         `Social Media Handle`
-    FROM bright.tv.user_profile;
+FROM bright.tv.user_profile;
 
     SELECT DISTINCT Race 
     FROM bright.tv.user_profile;
