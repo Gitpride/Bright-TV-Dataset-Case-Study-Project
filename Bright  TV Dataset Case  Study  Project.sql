@@ -22,63 +22,62 @@ WHERE UserID IS NULL
    OR Province IS NULL
    OR `Social Media Handle` IS NULL;
 
-   SELECT DISTINCT Gender 
-   FROM bright.tv.user_profile;
-
-   SELECT DISTINCT Name
-   FROM bright.tv.user_profile;
-
-   SELECT DISTINCT Surname
-   FROM bright.TV.user_profile;
-
-   SELECT UserID,
-          Name, 
-          Email,
-          CASE 
-              WHEN Surname = 'None' THEN 'Unknown'
-              ELSE Surname
-        END AS Surname,
-               Gender,
-               Race,
-               Province,
-               `Social Media Handle`
-    FROM bright.tv.user_profile;
-
-SELECT 
-        UserID,
-        Name,
-        Surname,
-        Email,
-        CASE 
-            WHEN Gender = 'None' THEN 'Unknown'
-            ELSE Gender 
-        END AS Gender,
-        Race,
-        Age,
-        Province,
-        `Social Media Handle`
+SELECT DISTINCT Gender 
 FROM bright.tv.user_profile;
 
-    SELECT DISTINCT Race 
-    FROM bright.tv.user_profile;
-    
-    SELECT UserID, 
-           Name,
-           Surname,
-           Email,
-           Gender,
-           CASE
-              WHEN Race = 'None' THEN 'Unknown'
-              ELSE Race
-            END AS Race,
-                   Age,
-                   Province,
-                  `Social Media Handle`
-    FROM bright.tv.user_profile;
+SELECT DISTINCT Name
+FROM bright.tv.user_profile;
 
-    SELECT MAX(Age),
-           MIN(Age)
-    FROM bright.tv.user_profile;
+SELECT DISTINCT Surname
+FROM bright.TV.user_profile;
+
+SELECT UserID,
+       Name, 
+       Email,
+              CASE 
+                     WHEN Surname = 'None' THEN 'Unknown'
+                     ELSE Surname
+              END AS Surname,
+                     Gender,
+                     Race,
+                     Province,
+                     `Social Media Handle`
+FROM bright.tv.user_profile;
+
+SELECT UserID,
+       Name,
+       Surname,
+       Email,
+              CASE 
+                      WHEN Gender = 'None' THEN 'Unknown'
+                      ELSE Gender 
+              END AS Gender,
+                      Race,
+                      Age,
+                      Province,
+                      `Social Media Handle`
+FROM bright.tv.user_profile;
+
+SELECT DISTINCT Race 
+FROM bright.tv.user_profile;
+    
+SELECT UserID, 
+       Name,
+       Surname,
+       Email,
+       Gender,
+              CASE
+                      WHEN Race = 'None' THEN 'Unknown'
+                      ELSE Race
+              END AS  Race,
+                      Age,
+                      Province,
+                      `Social Media Handle`
+FROM bright.tv.user_profile;
+
+SELECT MAX(Age),
+       MIN(Age)
+ FROM bright.tv.user_profile;
                    
 
 
