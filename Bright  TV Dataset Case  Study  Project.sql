@@ -99,6 +99,9 @@ SELECT UserID,
                        `Social Media Handle`
 FROM bright.tv.user_profile;
 
+SELECT DISTINCT Province
+FROM bright.tv.user_profile;
+
 
                    
 
