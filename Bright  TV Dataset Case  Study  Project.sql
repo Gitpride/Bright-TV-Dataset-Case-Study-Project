@@ -78,6 +78,28 @@ FROM bright.tv.user_profile;
 SELECT MAX(Age),
        MIN(Age)
  FROM bright.tv.user_profile;
+
+SELECT UserID, 
+       Name,
+       Surname,
+       Email,
+       Gender,
+       Race,
+                CASE
+                        WHEN Age BETWEEN 0 AND 12 THEN 'Children'
+                        WHEN Age BETWEEN 13 AND 17 THEN 'Teenagers'
+                        WHEN Age BETWEEN 18 AND 24 THEN 'Young Adults'
+                        WHEN Age BETWEEN 25 AND 34 THEN 'Adults'
+                        WHEN Age BETWEEN 35 AND 44 THEN 'Middle Adults'
+                        WHEN Age BETWEEN 45 AND 54 THEN 'Mature Adults'
+                        WHEN Age BETWEEN 55 AND 64 THEN 'Older Adults'
+                        WHEN Age >= 65 THEN 'Seniors'
+                END AS Age_Group,
+                       Province,
+                       `Social Media Handle`
+FROM bright.tv.user_profile;
+
+
                    
 
 
