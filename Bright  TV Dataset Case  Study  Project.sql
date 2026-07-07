@@ -1,107 +1,123 @@
 -- Databricks notebook source
+--==================================
+--BRIGHT TV CASE STUDY
+--==================================
+
+--==================================
+--1. VIEW THE DATASET
+--==================================
+
 SELECT * 
 FROM bright.tv.user_profile;
 
----Data Cleaning---
+--=================================
+--2. TOTAL NUMBER OF RECORDS
+--=================================
 
 SELECT COUNT(*)
 FROM bright.tv.user_profile;
 
+--================================
+--3. DATA QUALITY CHECKS
+--================================
+
+--Check UserID
 SELECT DISTINCT UserID
 FROM bright.tv.user_profile;
 
-SELECT *
-FROM bright.tv.user_profile
-WHERE UserID IS NULL
-   OR Name IS NULL
-   OR Surname IS NULL
-   OR Email IS NULL
-   OR Gender IS NULL
-   OR Race IS NULL
-   OR Age IS NULL
-   OR Province IS NULL
-   OR `Social Media Handle` IS NULL;
-
-SELECT DISTINCT Gender 
-FROM bright.tv.user_profile;
-
+--Check Name
 SELECT DISTINCT Name
 FROM bright.tv.user_profile;
 
+--Check Surname
 SELECT DISTINCT Surname
 FROM bright.TV.user_profile;
 
-SELECT UserID,
-       Name, 
-       Email,
-              CASE 
-                     WHEN Surname = 'None' THEN 'Unknown'
-                     ELSE Surname
-              END AS Surname,
-                     Gender,
-                     Race,
-                     Province,
-                     `Social Media Handle`
+--Check Gender
+SELECT DISTINCT Gender 
 FROM bright.tv.user_profile;
 
-SELECT UserID,
-       Name,
-       Surname,
-       Email,
-              CASE 
-                      WHEN Gender = 'None' THEN 'Unknown'
-                      ELSE Gender 
-              END AS Gender,
-                      Race,
-                      Age,
-                      Province,
-                      `Social Media Handle`
-FROM bright.tv.user_profile;
-
+--Check Race
 SELECT DISTINCT Race 
 FROM bright.tv.user_profile;
-    
-SELECT UserID, 
-       Name,
-       Surname,
-       Email,
-       Gender,
-              CASE
-                      WHEN Race = 'None' THEN 'Unknown'
-                      ELSE Race
-              END AS  Race,
-                      Age,
-                      Province,
-                      `Social Media Handle`
-FROM bright.tv.user_profile;
 
+--Check Age
 SELECT MAX(Age),
        MIN(Age)
  FROM bright.tv.user_profile;
 
-SELECT UserID, 
-       Name,
-       Surname,
-       Email,
-       Gender,
-       Race,
-                CASE
-                        WHEN Age BETWEEN 0 AND 12 THEN 'Children'
-                        WHEN Age BETWEEN 13 AND 17 THEN 'Teenagers'
-                        WHEN Age BETWEEN 18 AND 24 THEN 'Young Adults'
-                        WHEN Age BETWEEN 25 AND 34 THEN 'Adults'
-                        WHEN Age BETWEEN 35 AND 44 THEN 'Middle Adults'
-                        WHEN Age BETWEEN 45 AND 54 THEN 'Mature Adults'
-                        WHEN Age BETWEEN 55 AND 64 THEN 'Older Adults'
-                        WHEN Age >= 65 THEN 'Seniors'
-                END AS Age_Group,
-                       Province,
-                       `Social Media Handle`
-FROM bright.tv.user_profile;
-
+--Check Province
 SELECT DISTINCT Province
 FROM bright.tv.user_profile;
 
+--==============================
+--4. CREATE CLEANED DATASET
+--==============================
+   
+SELECT
+        UserID,
+
+        CASE
+                WHEN Name = 'None' THEN 'Unknown'
+                WHEN Name = ' ' THEN 'Unknown'
+                WHEN Name IS NULL THEN 'Unknown'
+        ELSE Name
+        END AS Name,
+
+        CASE 
+                WHEN Surname = 'None' THEN 'Unknown'
+                WHEN Surname = ' ' THEN 'Unknown'
+                WHEN Surname IS NULL THEN 'Unknown'
+        ELSE Surname
+        END AS Surname,
+
+        CASE
+                WHEN Email = 'None' THEN 'Unknown'
+                WHEN Email = ' ' THEN 'Unknown'
+                WHEN Email IS NULL THEN 'Unknown'
+        ELSE Email
+        END AS Email,
+
+        CASE
+                WHEN Gender = 'None' THEN 'Unknown'
+                WHEN Gender = ' ' THEN 'Unknown'
+                WHEN Gender IS NULL THEN 'Unknown'
+        ELSE Gender
+        END AS Sex,
+
+        CASE
+                WHEN Race = 'None' THEN 'Unknown'
+                WHEN Race = 'Other' THEN 'Unknown'
+                WHEN Race = ' ' THEN 'Unknown'
+                WHEN Race IS NULL THEN 'Unknown'
+        ELSE Race
+        END AS Ethnicity,
+
+        Age,
+        CASE
+                WHEN Age = 0  THEN '01. Infant'
+                WHEN Age BETWEEN 1 AND 12 THEN '02. Kids: 1-12'
+                WHEN Age BETWEEN 13 AND 17 THEN '03. Youth: 13-17'
+                WHEN Age BETWEEN 18 AND 35 THEN '04. Youth Adult: 18-35'
+                WHEN Age BETWEEN 36 AND 50 THEN '05. Adult: 36-50'
+                WHEN Age BETWEEN 51 AND 60 THEN '06. Elder: 51-60'
+                WHEN Age > 60 THEN '07. Pensioner'         
+        ELSE CAST(Age AS STRING)        
+        END AS Age_Group,
+
+         CASE
+                WHEN Province = 'None' THEN 'Unknown'
+                WHEN Province = ' ' THEN 'Unknown'
+                WHEN Province IS NULL THEN 'Unknown'
+        ELSE Province
+        END AS Region,
+               `Social Media Handle` AS Social_Media_Handle
+FROM bright.tv.user_profile;
+
+
+
+
+    
 
                    
 
