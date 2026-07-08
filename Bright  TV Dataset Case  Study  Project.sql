@@ -50,9 +50,10 @@ SELECT MAX(Age),
 SELECT DISTINCT Province
 FROM bright.tv.user_profile;
 
---==============================
+--================================
 --4. CREATE CLEANED DATASET
---==============================
+--================================
+
    
 SELECT
         UserID,
@@ -114,11 +115,47 @@ SELECT
                `Social Media Handle` AS Social_Media_Handle
 FROM bright.tv.user_profile;
 
+--==================================
+--VIEWRSHIP 
+--==================================
 
+---=================================
+--1. VIEW DATASET
+--==================================
 
+SELECT *
+FROM bright.tv.viewership;
 
-    
+--==================================
+--2. TOTAL NUMBER OF RECORDS
+--==================================
 
-                   
+SELECT COUNT(*)
+FROM bright.tv.viewership;
+
+--==================================
+--3. DATA QUALITY CHECKS
+--==================================
+
+--Check UserID0
+SELECT DISTINCT UserID0
+FROM bright.tv.viewership;
+
+--Check Channel2
+SELECT DISTINCT Channel2
+FROM bright.tv.viewership;
+
+--Check RecordDate2
+SELECT DISTINCT RecordDate2
+FROM bright.tv.viewership;
+
+--Check `Duration 2`
+SELECT DISTINCT `Duration 2` AS Duration_2
+FROM bright.tv.viewership;
+
+--Check userid4
+SELECT DISTINCT userid4
+FROM bright.tv.viewership;
+
 
 
