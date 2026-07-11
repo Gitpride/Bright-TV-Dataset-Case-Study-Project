@@ -14,7 +14,7 @@ FROM bright.tv.user_profile;
 --2. TOTAL NUMBER OF RECORDS
 --=================================
 
-SELECT COUNT(*) Total_ Count
+SELECT COUNT(*) AS Total_Count
 FROM bright.tv.user_profile;
 
 --================================
@@ -145,8 +145,11 @@ SELECT
         END AS Social_Media_Handle
 FROM bright.tv.user_profile
 )
-SELECT * 
+
+SELECT *
 FROM test_view;
+
+
 
 
 
@@ -207,7 +210,8 @@ SELECT
       DATE_FORMAT(RecordDate2, 'dd/MM/yyyy') AS Watch_Date,
       DATE_FORMAT(RecordDate2, 'HH:mm:ss') AS Watch_Time,
       DAYOFWEEK(RecordDate2) AS Day_Of_Week,
-      DATE_FORMAT(RecordDate2,'EEEE') Day_Name,
+      DATE_FORMAT(RecordDate2,'EEEE') AS Day_Name,
+      HOUR(RecordDate2) AS Hour_Of_Day,
       
         CASE
                 WHEN Channel2 IN ('SawSee', 'Sawsee') THEN 'Sawsee'
@@ -225,7 +229,14 @@ SELECT
                 WHEN Watch_Time BETWEEN '06:00:00' AND '11:59:59' THEN '02. Morning'
                 WHEN Watch_Time BETWEEN '12:00:00' AND '16:59:59' THEN '03. Afternoon'
                 WHEN Watch_Time BETWEEN '17:00:00' AND '23:59:59' THEN '03.Evening'
-        END AS Time_Of_Day    
+        END AS Time_Of_Day,
+
+        CASE
+                WHEN Watch_Time BETWEEN '00:05:00' AND '00:30:00' THEN '01. Low Usage: < 30 min'
+                WHEN Watch_Time BETWEEN '00:30:01' AND '00:59:59' THEN '02. Med Usage: < 60 min'
+                WHEN Watch_Time > '00:59:59' THEN '03. High Usage: > 60 min'
+        ELSE '04. No Usage'
+        END AS Screen_Time_Bucket
 FROM bright.tv.viewership;
  
 
